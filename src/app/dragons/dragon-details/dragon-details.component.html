@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/dragons']">
+      <mat-icon>list</mat-icon>
+    </a>
+  </div>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{dragon.name}}
+      </mat-card-title>
+
+      <mat-card-subtitle>
+          {{dragon.type}}
+      </mat-card-subtitle>
+
+    </mat-card-header>
+    <mat-card-content>
+      <dl>
+        <dt>Created At:</dt>
+        <dd>{{dragon.createdAt | date}}</dd>
+      </dl>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-button [routerLink]="['/dragon-edit', dragon.id]"><mat-icon>edit</mat-icon>Edit</button>
+        <button mat-button color="warn" (click)="deleteProduct(dragon.id)"><mat-icon>delete</mat-icon>Delete</button>
+      </mat-card-actions>
+  </mat-card>
+</div>
