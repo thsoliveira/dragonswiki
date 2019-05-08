@@ -1,11 +1,14 @@
 import { GeneralActions, GeneralActionTypes } from './general.actions';
+import { User } from '@app/_models';
 
 export interface GeneralState {
 	loading: boolean;
+	currentUser: User;
 }
 
 export const initialState: GeneralState = {
 	loading: false,
+	currentUser: null
 };
 
 export function generalReducer(state: GeneralState = initialState, action: GeneralActions): GeneralState {
