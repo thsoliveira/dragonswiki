@@ -1,0 +1,25 @@
+<div class="container" *ngIf="dragon">
+
+	<div class="button-row">
+		<button mat-raised-button color="primary" [routerLink]="['/']"> See other dragons </button>
+	</div>
+
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title>
+				{{dragon.name}}
+			</mat-card-title>
+
+			<mat-card-subtitle>
+				{{dragon.type}}
+			</mat-card-subtitle>
+
+		</mat-card-header>
+		<mat-card-content>
+			<span>
+				Created At: {{dragon.createdAt | date}}
+			</span>
+		</mat-card-content>
+
+	</mat-card>
+</div>

@@ -1,0 +1,6 @@
+<mat-dialog-content>
+	<ng-container *ngComponentOutlet="data.component"></ng-container>
+</mat-dialog-content>
+<mat-dialog-actions align="end" *ngIf="data?.closeButton">
+	<button mat-button [mat-dialog-close]="true">Fechar</button>
+</mat-dialog-actions>

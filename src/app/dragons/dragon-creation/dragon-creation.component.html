@@ -1,0 +1,37 @@
+<div class="container">
+	<div class="button-row">
+		<button mat-raised-button color="primary" [routerLink]="['/']"> See other dragons </button>
+	</div>
+	<form [formGroup]="creationForm" (ngSubmit)="onSubmit()">
+		<mat-card>
+
+			<mat-card-header>
+				<mat-card-title>The rise of a new dragon</mat-card-title>
+			</mat-card-header>
+
+			<mat-card-content>
+
+				<mat-form-field class="form-element">
+					<input matInput placeholder="Name" formControlName="name">
+					<mat-error *ngIf="!creationForm.get('name').valid && creationForm.get('name').touched">
+						This field is required
+					</mat-error>
+				</mat-form-field>
+
+				<mat-form-field class="form-element">
+					<input matInput placeholder="Type" formControlName="type">
+
+					<mat-error *ngIf="!creationForm.get('type').valid && creationForm.get('type').touched">
+						This field is required
+					</mat-error>
+				</mat-form-field>
+
+
+				<div class="form-element">
+					<button mat-raised-button color="primary" type="submit" class="button"
+						[disabled]="!creationForm.valid">Create</button>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</form>
+</div>
