@@ -1,21 +1,14 @@
-<header>
-  <nav class="navbar">
-    <!-- logo -->
-    <div class="navbar-brand">
-      <a class="navbar-item">
-        <img src="assets/images/arcanum-icon.png">
-      </a>
-    </div>
-
-    <button mat-raised-button> Logout </button>
-  </nav>
-</header>
+<app-header *ngIf="isLoggedIn"></app-header>
 
 <router-outlet></router-outlet>
 
-<footer>
-  <div class="content">
-    Made with <mat-icon>favorite</mat-icon> by <a
-      href="https://www.linkedin.com/in/thais-borges-oliveira-095582b5/">Thais Oliveira</a>
+<app-footer *ngIf="isLoggedIn"></app-footer>
+
+<div class="loader" [hidden]="!isLoading">
+  <div class="loader-wrapper">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
   </div>
-</footer>
+</div>

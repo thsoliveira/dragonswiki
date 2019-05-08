@@ -7,17 +7,32 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatIconModule, MatTableModule, MatSortModule, MatToolbarModule, MatProgressSpinnerModule } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import { DragonsModule } from './dragons/dragons.module';
 import { StoreModule } from '@ngrx/store';
+import { reducers } from './state/initial';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { DragonsReducer } from './state/dragons/dragons.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { DragonsEffects } from './state/dragons/dragons.effects';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { RegisterComponent } from './register/register.component';
+import { ModalComponent } from './_components/modal/modal.component';
+import { environment } from 'environments/environment';
+import { fakeBackendProvider } from './_helpers';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
 	declarations: [
 		AppComponent,
 		LoginComponent,
+		ModalComponent,
+		RegisterComponent,
+		HeaderComponent,
+		FooterComponent
 	],
 	imports: [
 		BrowserModule,
@@ -29,12 +44,13 @@ import { DragonsEffects } from './state/dragons/dragons.effects';
 		MatCardModule,
 		MatButtonModule,
 		HttpClientModule,
+		HttpModule,
 		MatIconModule,
 		MatToolbarModule,
 		MatTableModule,
 		MatSortModule,
 		MatProgressSpinnerModule,
-		AppRoutingModule
+		AppRoutingModule,
 		ConfirmDialogModule,
 		StoreModule.forFeature('dragons', DragonsReducer),
 		StoreModule.forRoot(reducers),
@@ -46,7 +62,18 @@ import { DragonsEffects } from './state/dragons/dragons.effects';
 		EffectsModule.forRoot([]),
 		EffectsModule.forFeature([DragonsEffects]),
 	],
-	providers: [],
+	exports: [
+		ModalComponent
+	],
+	providers: [
+		ConfirmationService,
+
+		// provider used to create fake backend
+		fakeBackendProvider
+	],
+	entryComponents: [
+		ModalComponent
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
