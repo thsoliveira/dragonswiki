@@ -8,10 +8,11 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 To access: 
 
-Username: admin
-Password: admin
+**Username**: admin
 
-Or you can creat you on login
+**Password:** admin
+
+Or you can creat your on login.
 
 ## Code scaffolding
 
