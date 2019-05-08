@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatIconModule, MatTableModule, MatSortModule, MatToolbarModule, MatProgressSpinnerModule } from '@angular/material';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { ToastrModule } from 'ngx-toastr';
 
 import { DragonsModule } from './dragons/dragons.module';
 import { StoreModule } from '@ngrx/store';
@@ -52,6 +53,7 @@ import { FooterComponent } from './footer/footer.component';
 		MatProgressSpinnerModule,
 		AppRoutingModule,
 		ConfirmDialogModule,
+		ToastrModule.forRoot(),
 		StoreModule.forFeature('dragons', DragonsReducer),
 		StoreModule.forRoot(reducers),
 		StoreDevtoolsModule.instrument({

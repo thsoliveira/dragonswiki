@@ -6,7 +6,7 @@ import { AuthenticationService } from '@app/_services';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '@app/state/initial';
 import { selectOpenSession } from '@app/state/general/general.selectors';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html'
@@ -23,16 +23,16 @@ export class LoginComponent implements OnInit {
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _authenticationService: AuthenticationService,
-		// private _alertService: AlertService
+		private _toastr: ToastrService
 	) { }
 
 	ngOnInit() {
 
-		// this._store.pipe(select(selectOpenSession)).subscribe(session => {
-		// 	if (session === undefined || session === null) {
-		// 		this._router.navigate(['/main']);
-		// 	}
-		// })
+		this._store.pipe(select(selectOpenSession)).subscribe(session => {
+			if (session !== undefined && session !== null) {
+				this._router.navigate(['/main']);
+			}
+		})
 
 		this.loginForm = this._formBuilder.group({
 			username: ['', Validators.required],
@@ -58,10 +58,11 @@ export class LoginComponent implements OnInit {
 			.pipe(first())
 			.subscribe(
 				data => {
+					this._toastr.success('Login success!');
 					this._router.navigate([this.returnUrl]);
 				},
 				error => {
-					// this._alertService.error(error);
+					this._toastr.success('Something is wrong in your login!');
 					// this.loading = false;
 				});
 	}

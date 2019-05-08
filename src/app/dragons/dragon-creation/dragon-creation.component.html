@@ -1,4 +1,7 @@
 <div class="container">
+	<div class="button-row">
+		<button mat-raised-button color="primary" [routerLink]="['/']"> See other dragons </button>
+	</div>
 	<form [formGroup]="creationForm" (ngSubmit)="onSubmit()">
 		<mat-card>
 

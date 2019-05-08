@@ -8,6 +8,8 @@ import { mergeMap } from 'rxjs/internal/operators/mergeMap';
 import { ChangeLoading } from '../general/general.actions';
 import { map } from 'rxjs/internal/operators/map';
 import { catchError } from 'rxjs/internal/operators/catchError';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class DragonsEffects {
@@ -16,6 +18,8 @@ export class DragonsEffects {
 		private _actions$: Actions,
 		private _store: Store<AppState>,
 		private _service: AppService,
+		private _toastr: ToastrService,
+		private _router: Router
 	) {
 
 	}
@@ -70,7 +74,7 @@ export class DragonsEffects {
 				return this._service.deleteRequest(action.id).pipe(
 					map((data: any) => {
 						this._store.dispatch(new ChangeLoading(false));
-
+						this._toastr.success('The dragon was killed!');
 						return new GetDragonsList();
 					})
 				)
@@ -90,7 +94,8 @@ export class DragonsEffects {
 				return this._service.postRequest(action.body).pipe(
 					map((data: any) => {
 						this._store.dispatch(new ChangeLoading(false));
-
+						this._toastr.success('A new dragon has born!');
+						this._router.navigate(['/']);
 						return new GetDragonsList();
 					})
 				)
@@ -110,8 +115,7 @@ export class DragonsEffects {
 				return this._service.updateRequest(action.id, action.body).pipe(
 					map((data: any) => {
 						this._store.dispatch(new ChangeLoading(false));
-
-						// this._toasterService.pop('success', '', 'A new dragon has born!');
+						this._toastr.success('Your dragon was updated!');
 						return new GetDragonsList();
 					})
 				)

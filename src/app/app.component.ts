@@ -3,8 +3,6 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from './state/initial';
 import { selectLoading, selectOpenSession } from './state/general/general.selectors';
 import { AuthenticationService } from './_services/authentication.service';
-import { Observable } from 'rxjs/internal/Observable';
-import { User } from './_models';
 
 @Component({
 	selector: 'app-root',
@@ -22,6 +20,7 @@ export class AppComponent implements OnInit {
 		private _store: Store<AppState>,
 		private _authenticationService: AuthenticationService
 	) {
+		
 	}
 
 	ngOnInit() {
