@@ -24,6 +24,18 @@ export function generalReducer(state: GeneralState = initialState, action: Gener
 				loading: action.payload
 			};
 
+		case GeneralActionTypes.OpenSession:
+			return {
+				...state,
+				currentUser: action.payload
+			};
+			
+		case GeneralActionTypes.CloseSession:
+			return {
+				...state,
+				currentUser: null
+			};
+
 		default:
 			return state;
 	}

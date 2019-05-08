@@ -17,7 +17,12 @@ const routes: Routes = [
 		path: 'dragon-add',
 		component: DragonCreationComponent,
 		canActivate: [AuthGuard]
-	 },
+	},
+	{
+		path: 'dragon-details/:id',
+		component: DragonDetailsComponent,
+		canActivate: [AuthGuard]
+	},
 	// otherwise redirect to home
 	{ path: '**', redirectTo: '' }
 
@@ -29,12 +34,7 @@ const routes: Routes = [
 	// 	component: DragonsComponent,
 	// 	data: { title: 'List of Dragons' }
 	//  },
-	//  {
-	// 	path: 'dragon-details/:id',
-	// 	component: DragonDetailsComponent,
-	// 	data: { title: 'Dragon Details' }
-	//  },
-	 
+
 ];
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],

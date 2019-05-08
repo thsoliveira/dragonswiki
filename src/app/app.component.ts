@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from './state/initial';
-import { selectLoading } from './state/general/general.selectors';
+import { selectLoading, selectOpenSession } from './state/general/general.selectors';
 import { AuthenticationService } from './_services/authentication.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from './_models';
@@ -23,13 +23,16 @@ export class AppComponent implements OnInit {
 		private _authenticationService: AuthenticationService
 	) {
 	}
-	
+
 	ngOnInit() {
-		if (this._authenticationService.currentUserValue) {
-			console.log(this._authenticationService.currentUserValue);
-			this.isLoggedIn = true;
-		}
-		
+
+		this._store.pipe(select(selectOpenSession)).subscribe(session => {
+			this.isLoggedIn = false;
+			if (session !== undefined && session !== null) {
+				this.isLoggedIn = true;
+			}
+		});
+
 		this._store.pipe(select(selectLoading)).subscribe(loading => {
 			if (loading !== null) {
 				this.isLoading = loading;

@@ -7,3 +7,8 @@ export const selectLoading = createSelector(
 	selectGeneralState,
 	(generalState: GeneralState) => generalState.loading
 );
+
+export const selectOpenSession = createSelector(
+	selectGeneralState,
+	(generalState: GeneralState) => generalState.currentUser
+);

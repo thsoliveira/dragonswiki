@@ -12,6 +12,7 @@ export enum GeneralActionTypes {
 	LoginUserSuccess = '[General] Login User - Success',
 	LoginUserError = '[General] Login User - Error',
 
+	OpenSession = '[General] Open session ( Login )',
 	CloseSession = '[General] Close session ( Logout )',
 
 }
@@ -46,6 +47,11 @@ export class LoginUserError implements Action {
 	}
 }
 
+export class OpenSession implements Action {
+	readonly type = GeneralActionTypes.OpenSession;
+	constructor(public payload: any) {
+	}
+}
 export class CloseSession implements Action {
 	readonly type = GeneralActionTypes.CloseSession;
 }
@@ -56,4 +62,5 @@ export type GeneralActions =
 	| LoginUser
 	| LoginUserSuccess
 	| LoginUserError
+	| OpenSession
 	| CloseSession

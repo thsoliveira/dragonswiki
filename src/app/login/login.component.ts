@@ -3,6 +3,9 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/internal/operators/first';
 import { AuthenticationService } from '@app/_services';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '@app/state/initial';
+import { selectOpenSession } from '@app/state/general/general.selectors';
 
 @Component({
 	selector: 'app-login',
@@ -15,6 +18,7 @@ export class LoginComponent implements OnInit {
 	public returnUrl: string;
 
 	constructor(
+		private _store: Store<AppState>,
 		private _formBuilder: FormBuilder,
 		private _route: ActivatedRoute,
 		private _router: Router,
@@ -23,6 +27,13 @@ export class LoginComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
+
+		// this._store.pipe(select(selectOpenSession)).subscribe(session => {
+		// 	if (session === undefined || session === null) {
+		// 		this._router.navigate(['/main']);
+		// 	}
+		// })
+
 		this.loginForm = this._formBuilder.group({
 			username: ['', Validators.required],
 			password: ['', Validators.required]
