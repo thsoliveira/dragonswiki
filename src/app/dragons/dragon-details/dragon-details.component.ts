@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Dragon } from '../../models/dragon.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
+import { ActivatedRoute } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Dragon } from '@app/_models';
+import { AppState } from '@app/state/initial';
+import { GetDragon } from '@app/state/dragons/dragons.actions';
+import { selectDragon } from '@app/state/dragons/dragons.selectors';
 
 @Component({
 	selector: 'app-dragon-details',
@@ -10,40 +13,22 @@ import { AppService } from 'src/app/app.service';
 })
 export class DragonDetailsComponent implements OnInit {
 
-	dragon: Dragon = new Dragon;
-	isLoadingResults = true;
+	public dragon: Dragon;
 
 	constructor(
-		private _route: ActivatedRoute, 
-		private _service: AppService, 
-		private _router: Router
+		private _route: ActivatedRoute,
+		private _store: Store<AppState>
 	) { }
 
 	ngOnInit() {
 		console.log(this._route.snapshot.params['id']);
-		this.getDragonDetails(this._route.snapshot.params['id']);
-	}
+		this._store.dispatch(new GetDragon(this._route.snapshot.params['id']));
 
-	getDragonDetails(id) {
-		this._service.getDragon(id)
-			.subscribe(data => {
+		this._store.pipe(select(selectDragon)).subscribe(data => {
+			if (data !== undefined && data !== null) {
+				console.log(data);
 				this.dragon = data;
-				console.log(this.dragon);
-				this.isLoadingResults = false;
-			});
-	}
-
-	deleteDragon(id) {
-		this.isLoadingResults = true;
-		this._service.deleteDragon(id)
-			.subscribe(res => {
-				this.isLoadingResults = false;
-				this._router.navigate(['/dragons']);
-			}, (err) => {
-				console.log(err);
-				this.isLoadingResults = false;
 			}
-			);
+		});
 	}
-
 }
