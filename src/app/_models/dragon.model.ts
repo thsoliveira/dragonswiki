@@ -3,5 +3,10 @@ export class Dragon {
 	createdAt: string;
 	name: string;
 	type: number;
-	histories: any;
+}
+
+export class DragonEditBody {
+	createdAt: string;
+	name: string;
+	type: number;
 }
