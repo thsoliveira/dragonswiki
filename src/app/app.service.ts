@@ -2,15 +2,29 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
+import { Dragon } from './_models/dragon.model';
 
-const endpoint = 'http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon';
+const endpoint = "http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon";
 
+const httpOptions = {
+	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 @Injectable({
 	providedIn: 'root'
 })
 export class AppService {
 
-	constructor(private _http: HttpClient, ) { }
+	constructor(private _http: HttpClient) { }
+
+	getDragons(): Observable<Dragon[]> {
+		return this._http.get<Dragon[]>(endpoint)
+			.pipe(
+				tap(
+					dragons => console.log(dragons)
+				),
+				catchError(this.handleError('getDragons', []))
+			);
+	}
 
 	getRequest(id?: number): Observable<any> {
 		let url = endpoint;
@@ -19,8 +33,10 @@ export class AppService {
 			url = `${endpoint}/${id}`;
 		}
 
-		// MUDAR PARA GET DA STORE
-		return this._http.get(url, { headers: this.getHeaders(), observe: 'response' }).pipe(
+		return this._http.get(url).pipe(
+			tap(
+				data => console.log(data)
+			),
 			catchError(
 				err => {
 					this.handleError(err, url);
@@ -33,6 +49,7 @@ export class AppService {
 	deleteRequest(id: number): Observable<any> {
 		return this._http.delete(endpoint + `/${id}`)
 			.pipe(
+				tap(_ => console.log(`deleted dragon id=${id}`)),
 				catchError(
 					err => {
 						this.handleError(err, endpoint);
@@ -44,6 +61,7 @@ export class AppService {
 
 	postRequest(body: any): Observable<any> {
 		return this._http.post(endpoint, body).pipe(
+			tap((dragon: Dragon) => console.log(`added dragon w/ id=${dragon.id}`)),
 			catchError(
 				err => {
 					this.handleError(err, endpoint);

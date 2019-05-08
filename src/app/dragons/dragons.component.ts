@@ -39,7 +39,6 @@ export class DragonsComponent implements OnInit {
 
 		this._store.pipe(select(selectDragons)).subscribe(data => {
 			if (data !== undefined && data !== null) {
-				console.log(data);
 				this.dragons = data;
 				if (this.dialogRef !== undefined && this.dialogRef !== null) this.dialogRef.close();
 			}
