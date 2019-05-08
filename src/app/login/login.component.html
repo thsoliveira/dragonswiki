@@ -1,4 +1,4 @@
-<section class="login-page">
+<section class="register-page">
 	<div class="container-fluid">
 		<form class="col-12 col-xs-8 col-lg-6 col-md-7 col-xs-12" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 			<mat-card>
@@ -29,6 +29,8 @@
 					<div class="form-element">
 						<button mat-raised-button color="primary" type="submit" class="button"
 							[disabled]="!loginForm.valid">Login</button>
+
+						<a mat-raised-button [routerLink]="['/register']" class="btn btn-link">Register</a>
 					</div>
 				</mat-card-content>
 			</mat-card>

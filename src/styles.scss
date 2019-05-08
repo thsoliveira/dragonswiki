@@ -11,16 +11,51 @@
       width: 100%;
       margin-top: 1em;
       text-transform: uppercase;
+
+      &:hover{
+         text-decoration: none;
+      }
    }
 }
 
-form{
+form {
    .mat-card-header {
       display: block;
       text-align: center;
-   
+
       .mat-card-title {
          font-size: 1.5em;
       }
+   }
+}
+
+button:focus {
+   outline: none;
+}
+
+.register-page {
+   background-image: url('assets/images/astronomy.jpg');
+   height: 100vh;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+
+   display: flex;
+   align-items: center;
+
+   .header-image {
+      background-image: url('assets/images/arcanum-icon.png');
+      background-size: cover;
+      display: table;
+      margin: auto;
+      margin-bottom: 1em;
+   }
+
+   form {
+      margin: auto;
+   }
+
+   .mat-card {
+      padding: 2em;
    }
 }
